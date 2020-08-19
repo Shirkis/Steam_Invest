@@ -1,0 +1,9 @@
+D:\dev\Steam_Invest\Steam_Invest.DAL\bin\Debug\netcoreapp3.1\Steam_Invest.DAL.deps.json
+D:\dev\Steam_Invest\Steam_Invest.DAL\bin\Debug\netcoreapp3.1\Steam_Invest.DAL.dll
+D:\dev\Steam_Invest\Steam_Invest.DAL\bin\Debug\netcoreapp3.1\Steam_Invest.DAL.pdb
+D:\dev\Steam_Invest\Steam_Invest.DAL\obj\Debug\netcoreapp3.1\Steam_Invest.DAL.csprojAssemblyReference.cache
+D:\dev\Steam_Invest\Steam_Invest.DAL\obj\Debug\netcoreapp3.1\Steam_Invest.DAL.AssemblyInfoInputs.cache
+D:\dev\Steam_Invest\Steam_Invest.DAL\obj\Debug\netcoreapp3.1\Steam_Invest.DAL.AssemblyInfo.cs
+D:\dev\Steam_Invest\Steam_Invest.DAL\obj\Debug\netcoreapp3.1\Steam_Invest.DAL.dll
+D:\dev\Steam_Invest\Steam_Invest.DAL\obj\Debug\netcoreapp3.1\Steam_Invest.DAL.pdb
+D:\dev\Steam_Invest\Steam_Invest.DAL\obj\Debug\netcoreapp3.1\Steam_Invest.DAL.csproj.CoreCompileInputs.cache

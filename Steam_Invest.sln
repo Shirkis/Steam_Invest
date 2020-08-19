@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Steam_Invest.PRL", "Steam_Invest\Steam_Invest.PRL.csproj", "{4F6AB971-33C1-4FB4-9DC6-7566244ACA56}"
+	ProjectSection(ProjectDependencies) = postProject
+		{845D27A6-8A55-4EE2-8C3B-3A79D4D92AFE} = {845D27A6-8A55-4EE2-8C3B-3A79D4D92AFE}
+		{13A8D6E6-CB06-4709-8C00-E66E5A1F4D3C} = {13A8D6E6-CB06-4709-8C00-E66E5A1F4D3C}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Steam_Invest.BLL", "Steam_Invest.BLL\Steam_Invest.BLL.csproj", "{845D27A6-8A55-4EE2-8C3B-3A79D4D92AFE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{13A8D6E6-CB06-4709-8C00-E66E5A1F4D3C} = {13A8D6E6-CB06-4709-8C00-E66E5A1F4D3C}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Steam_Invest.DAL", "Steam_Invest.DAL\Steam_Invest.DAL.csproj", "{13A8D6E6-CB06-4709-8C00-E66E5A1F4D3C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4F6AB971-33C1-4FB4-9DC6-7566244ACA56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F6AB971-33C1-4FB4-9DC6-7566244ACA56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F6AB971-33C1-4FB4-9DC6-7566244ACA56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F6AB971-33C1-4FB4-9DC6-7566244ACA56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{845D27A6-8A55-4EE2-8C3B-3A79D4D92AFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{845D27A6-8A55-4EE2-8C3B-3A79D4D92AFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{845D27A6-8A55-4EE2-8C3B-3A79D4D92AFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{845D27A6-8A55-4EE2-8C3B-3A79D4D92AFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13A8D6E6-CB06-4709-8C00-E66E5A1F4D3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13A8D6E6-CB06-4709-8C00-E66E5A1F4D3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13A8D6E6-CB06-4709-8C00-E66E5A1F4D3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13A8D6E6-CB06-4709-8C00-E66E5A1F4D3C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ABF4BBC5-BDAF-4804-9F05-D9CE41A4BF08}
+	EndGlobalSection
+EndGlobal
