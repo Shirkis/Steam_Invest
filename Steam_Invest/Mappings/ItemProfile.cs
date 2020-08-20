@@ -1,4 +1,7 @@
 ﻿using AutoMapper;
+using Steam_Invest.BLL.DTO;
+using Steam_Invest.BLL.DTO.BindingModel;
+using Steam_Invest.DAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +15,9 @@ namespace Steam_Invest.PRL.Mappings
         {
             //CreateMap<Groups, GroupStatisticDTO>()
             //    .ForMember(dest => dest.GroupName, s => s.MapFrom(c => c.Name));
+
+            CreateMap<Portfolio, PortfolioDTO>();
+            CreateMap<RegisterBindingModel, PersonInfo>();
         }
     }
 }

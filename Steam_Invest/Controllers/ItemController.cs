@@ -26,5 +26,16 @@ namespace Steam_Invest.PRL.Controllers
         }
 
         #endregion
+
+        #region Portfolio
+
+        [HttpGet("portfolios")]
+        public async Task<IActionResult> GetPortfolios()
+        {
+            var res = await _itemService.GetPortfolios();
+            return Ok(res);
+        }
+
+        #endregion
     }
 }

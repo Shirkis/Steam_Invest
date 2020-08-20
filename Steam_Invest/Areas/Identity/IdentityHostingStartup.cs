@@ -19,8 +19,8 @@ namespace Steam_Invest.PRL.Areas.Identity
                     options.UseNpgsql(
                         context.Configuration.GetConnectionString("DefaultConnection")));
 
-                services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddEntityFrameworkStores<Steam_InvestContext>();
+                //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                //    .AddEntityFrameworkStores<Steam_InvestContext>();
             });
         }
     }

@@ -192,3 +192,5 @@ D:\dev\Steam_Invest\Steam_Invest\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Op
 D:\dev\Steam_Invest\Steam_Invest\obj\Debug\netcoreapp3.1\Steam_Invest.PRL.csproj.CoreCompileInputs.cache
 D:\dev\Steam_Invest\Steam_Invest\obj\Debug\netcoreapp3.1\Steam_Invest.PRL.MvcApplicationPartsAssemblyInfo.cs
 D:\dev\Steam_Invest\Steam_Invest\obj\Debug\netcoreapp3.1\Steam_Invest.PRL.MvcApplicationPartsAssemblyInfo.cache
+D:\dev\Steam_Invest\Steam_Invest\bin\Debug\netcoreapp3.1\ClientApp\package.json
+D:\dev\Steam_Invest\Steam_Invest\bin\Debug\netcoreapp3.1\ClientApp\public\manifest.json

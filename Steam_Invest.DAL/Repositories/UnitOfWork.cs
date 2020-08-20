@@ -4,6 +4,7 @@ using Steam_Invest.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Steam_Invest.DAL.Repositories
 {
@@ -13,6 +14,7 @@ namespace Steam_Invest.DAL.Repositories
 
         #region Fields
 
+        private IGenericRepository<AspNetUser> _aspNetUsers;
         private IGenericRepository<PersonInfo> _personInfo;
         private IGenericRepository<Portfolio> _portfolio;
         private IGenericRepository<Item> _item;
@@ -31,6 +33,8 @@ namespace Steam_Invest.DAL.Repositories
 
         #region IUnitOfWork Members
 
+        public IGenericRepository<AspNetUser> AspNetUsers
+            => _aspNetUsers ?? (_aspNetUsers = new GenericRepository<AspNetUser>(_context));
         public IGenericRepository<PersonInfo> PersonInfo
             => _personInfo ?? (_personInfo = new GenericRepository<PersonInfo>(_context));
 
@@ -42,6 +46,24 @@ namespace Steam_Invest.DAL.Repositories
 
         public IGenericRepository<Game> Games
             => _game ?? (_game = new GenericRepository<Game>(_context));
+
+        #endregion
+
+        #region Methods
+        public int SaveChanges()
+        {
+            return _context.SaveChanges();
+        }
+
+        public Task<int> SaveChangesAsync()
+        {
+            return _context.SaveChangesAsync();
+        }
+
+        public Task<int> SaveChangesAsync(System.Threading.CancellationToken cancellationToken)
+        {
+            return _context.SaveChangesAsync(cancellationToken);
+        }
 
         #endregion
 

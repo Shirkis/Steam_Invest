@@ -1,7 +1,11 @@
-﻿using Steam_Invest.BLL.DTO;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using Steam_Invest.BLL.DTO;
 using Steam_Invest.BLL.Interfaces;
+using Steam_Invest.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,15 +15,16 @@ namespace Steam_Invest.BLL.Services
     public class ItemService : IItemService
     {
 
-        public ItemService()
+        IUnitOfWork _uow { get; set; }
+        private IMapper _mapper;
+
+        public ItemService(IUnitOfWork uow, IMapper mapper)
         {
-
-        }
-        public async Task GetItems()
-        {
-
+            _uow = uow;
+            _mapper = mapper;
         }
 
+        #region Item
         public async Task<ItemDTO> GetItemByName(string itemName, string game)
         {
             var client = new HttpClient();
@@ -52,5 +57,20 @@ namespace Steam_Invest.BLL.Services
             };
             return res;
         }
+
+        #endregion
+
+        #region Portfolio
+
+        public async Task<List<PortfolioDTO>> GetPortfolios()
+        {
+            var portfolios = await _uow.Portfolios.Query()
+                .ToListAsync();
+
+            var res = _mapper.Map<List<PortfolioDTO>>(portfolios);
+            return res;
+        }
+
+        #endregion
     }
 }

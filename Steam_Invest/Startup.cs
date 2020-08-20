@@ -18,6 +18,9 @@ using Steam_Invest.DAL.EF;
 using Steam_Invest.DAL.Interfaces;
 using Steam_Invest.DAL.Repositories;
 using Steam_Invest.PRL.Mappings;
+using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using System.IO;
+using Steam_Invest.DAL.Entities;
 
 namespace Steam_Invest
 {
@@ -37,6 +40,25 @@ namespace Steam_Invest
             {
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"),
                     b => b.MigrationsAssembly("Steam_Invest.DAL")).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+            });
+
+            services.AddIdentity<AspNetUser, AspNetRole>().AddEntityFrameworkStores<Steam_InvestContext>().AddDefaultTokenProviders();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
+                options.User.RequireUniqueEmail = true;
+            });
+
+            services.AddMvc(option => option.EnableEndpointRouting = false);
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ClientApp/build";
             });
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
@@ -89,7 +111,17 @@ namespace Steam_Invest
             });
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseSpaStaticFiles();
+            app.UseMvc();
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = Path.Join(env.ContentRootPath, "ClientApp");
 
+                if (env.IsDevelopment())
+                {
+                    spa.UseReactDevelopmentServer(npmScript: "start");
+                }
+            });
             app.UseRouting();
 
             app.UseAuthentication();
