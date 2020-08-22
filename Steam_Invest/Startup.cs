@@ -112,6 +112,12 @@ namespace Steam_Invest
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+            app.UseCors(builder =>
+            {
+                builder.AllowAnyOrigin();
+                builder.AllowAnyHeader();
+                builder.AllowAnyMethod();
+            });
             app.UseMvc();
             app.UseSpa(spa =>
             {

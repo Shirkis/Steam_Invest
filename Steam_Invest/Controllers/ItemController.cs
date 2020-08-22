@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Steam_Invest.PRL.Controllers
 {
+    [Route("api")]
     public class ItemController : Controller
     {
         private readonly IItemService _itemService;
@@ -29,12 +30,18 @@ namespace Steam_Invest.PRL.Controllers
 
         #region Portfolio
 
-        [HttpGet("portfolios")]
+        [HttpGet("portfolio")]
         public async Task<IActionResult> GetPortfolios()
         {
             var res = await _itemService.GetPortfolios();
             return Ok(res);
         }
+
+        //[HttpGet("portfolio/{portfolioId}")]
+        //public async Task<IActionResult> GetPortfolioById()
+        //{
+        //    var res = await
+        //}
 
         #endregion
     }
