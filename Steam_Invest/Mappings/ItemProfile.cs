@@ -17,6 +17,7 @@ namespace Steam_Invest.PRL.Mappings
             //    .ForMember(dest => dest.GroupName, s => s.MapFrom(c => c.Name));
 
             CreateMap<Portfolio, PortfolioDTO>();
+            CreateMap<PortfolioDTO, Portfolio>();
             CreateMap<RegisterBindingModel, PersonInfo>();
         }
     }

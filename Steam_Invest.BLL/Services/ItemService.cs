@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Steam_Invest.BLL.DTO;
 using Steam_Invest.BLL.Interfaces;
+using Steam_Invest.DAL.Entities;
 using Steam_Invest.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -64,11 +65,86 @@ namespace Steam_Invest.BLL.Services
 
         public async Task<List<PortfolioDTO>> GetPortfolios()
         {
-            var portfolios = await _uow.Portfolios.Query()
-                .ToListAsync();
+            try
+            {
+                var portfolios = await _uow.Portfolios.Query()
+                    .ToListAsync();
 
-            var res = _mapper.Map<List<PortfolioDTO>>(portfolios);
-            return res;
+                var res = _mapper.Map<List<PortfolioDTO>>(portfolios);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public async Task<PortfolioDTO> GetPortfolioById(int portfolioId)
+        {
+            try
+            {
+                var portfolios = await _uow.Portfolios.Query()
+                    .Where(s => s.PortfolioId == portfolioId)
+                    .FirstOrDefaultAsync();
+
+                var res = _mapper.Map<PortfolioDTO>(portfolios);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public async Task CreatePortfolio(PortfolioDTO model)
+        {
+            try
+            {
+                var newportfolio = _mapper.Map<Portfolio>(model);
+                _uow.Portfolios.Add(newportfolio);
+                await _uow.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public async Task UpdatePortfolio(int portfolioId, PortfolioDTO model)
+        {
+            try
+            {
+                var oldportfolio = await _uow.Portfolios.Query()
+                    .Where(s => s.PortfolioId == portfolioId)
+                    .FirstOrDefaultAsync();
+
+                var portfolio = _mapper.Map<Portfolio>(model);
+                portfolio.PortfolioId = oldportfolio.PortfolioId;
+                _uow.Portfolios.Update(portfolio);
+                await _uow.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public async Task DeletePortfolio(int portfolioId)
+        {
+            try
+            {
+                var oldportfolio = await _uow.Portfolios.Query()
+                    .Where(s => s.PortfolioId == portfolioId)
+                    .FirstOrDefaultAsync();
+                if (oldportfolio == null)
+                    throw new Exception($"Не удалось найти сущность");
+
+                _uow.Portfolios.DeleteById(portfolioId);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         #endregion

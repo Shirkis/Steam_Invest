@@ -16,6 +16,9 @@ namespace Steam_Invest.DAL.EF
         {
         }
 
+        //public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
+        //public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+        //public virtual DbSet<AspNetUserRole> AspNetUserRoles { get; set; }
         public virtual DbSet<PersonInfo> PersonInfo { get; set; }
         public virtual DbSet<Portfolio> Portfolios { get; set; }
         public virtual DbSet<Item> Items { get; set; }
@@ -24,6 +27,10 @@ namespace Steam_Invest.DAL.EF
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            //builder.Entity<IdentityRole>().ToTable("AspNetRoles").HasKey(r => r.Id);
+            //builder.Entity<IdentityUser>().ToTable("AspNetUsers").HasKey(r => r.Id);
+            //builder.Entity<IdentityUserRole<string>>().HasKey(p => new { p.UserId, p.RoleId });
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);

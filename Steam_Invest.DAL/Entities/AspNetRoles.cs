@@ -7,6 +7,6 @@ namespace Steam_Invest.DAL.Entities
 {
     public partial class AspNetRole : IdentityRole
     {
-        public ICollection<AspNetUserRole> AspNetUserRoles { get; set; }
+        public virtual ICollection<AspNetUserRole> AspNetUserRoles { get; set; }
     }
 }

@@ -1,8 +1,25 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20200823103542_FixRole3.cs" />
+    <Compile Remove="Migrations\20200823103542_FixRole3.Designer.cs" />
+    <Compile Remove="Migrations\20200823110137_FixRole3.cs" />
+    <Compile Remove="Migrations\20200823110137_FixRole3.Designer.cs" />
+    <Compile Remove="Migrations\20200823110517_FixRole3.cs" />
+    <Compile Remove="Migrations\20200823110517_FixRole3.Designer.cs" />
+    <Compile Remove="Migrations\20200823110633_FixRole3.cs" />
+    <Compile Remove="Migrations\20200823110633_FixRole3.Designer.cs" />
+    <Compile Remove="Migrations\20200823111642_FixRole5.cs" />
+    <Compile Remove="Migrations\20200823111642_FixRole5.Designer.cs" />
+    <Compile Remove="Migrations\20200823111930_FixRole5.cs" />
+    <Compile Remove="Migrations\20200823111930_FixRole5.Designer.cs" />
+    <Compile Remove="Migrations\20200823112130_FixRole5.cs" />
+    <Compile Remove="Migrations\20200823112130_FixRole5.Designer.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.0.0" />

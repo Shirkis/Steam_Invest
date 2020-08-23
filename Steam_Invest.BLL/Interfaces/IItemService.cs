@@ -17,7 +17,12 @@ namespace Steam_Invest.BLL.Interfaces
         #region Portfolio
 
         Task<List<PortfolioDTO>> GetPortfolios();
-        
+
+        Task<PortfolioDTO> GetPortfolioById(int portfolioId);
+        Task CreatePortfolio(PortfolioDTO model);
+        Task UpdatePortfolio(int portfolioId, PortfolioDTO model);
+        Task DeletePortfolio(int portfolioId);
+
         #endregion
     }
 }

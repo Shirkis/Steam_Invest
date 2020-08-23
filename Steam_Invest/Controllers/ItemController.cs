@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Steam_Invest.BLL.DTO;
 using Steam_Invest.BLL.Interfaces;
+using Steam_Invest.DAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +15,12 @@ namespace Steam_Invest.PRL.Controllers
     public class ItemController : Controller
     {
         private readonly IItemService _itemService;
+        private readonly UserManager<AspNetUser> _userManager;
 
-        public ItemController(IItemService itemService)
+        public ItemController(IItemService itemService, UserManager<AspNetUser> userManager)
         {
             _itemService = itemService;
+            _userManager = userManager;
         }
 
         #region Item
@@ -37,12 +43,34 @@ namespace Steam_Invest.PRL.Controllers
             return Ok(res);
         }
 
-        //[HttpGet("portfolio/{portfolioId}")]
-        //public async Task<IActionResult> GetPortfolioById()
-        //{
-        //    var res = await
-        //}
+        [HttpGet("portfolio/{portfolioId}")]
+        public async Task<IActionResult> GetPortfolioById([FromQuery] int portfolioId)
+        {
+            var res = await _itemService.GetPortfolioById(portfolioId);
+            return Ok(res);
+        }
 
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpPost("portfolio")]
+        public async Task<IActionResult> CreatePortfolio([FromBody] PortfolioDTO model)
+        {
+            await _itemService.CreatePortfolio(model);
+            return Ok();
+        }
+
+        [HttpPut("portfolio/{portfolioId}")]
+        public async Task<IActionResult> UpdatePortfolio([FromQuery] int portfolioId, [FromBody] PortfolioDTO model)
+        {
+            await _itemService.UpdatePortfolio(portfolioId, model);
+            return Ok();
+        }
+
+        [HttpDelete("portfolio/{portfolioId}")]
+        public async Task<IActionResult> DeletePortfolio([FromQuery] int portfolioId)
+        {
+            await _itemService.DeletePortfolio(portfolioId);
+            return Ok();
+        }
         #endregion
     }
 }

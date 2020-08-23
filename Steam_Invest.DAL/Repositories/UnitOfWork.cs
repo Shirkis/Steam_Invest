@@ -15,6 +15,8 @@ namespace Steam_Invest.DAL.Repositories
         #region Fields
 
         private IGenericRepository<AspNetUser> _aspNetUsers;
+        //private IGenericRepository<AspNetRole> _aspNetRoles;
+        //private IGenericRepository<AspNetUserRole> _aspNetUserRoles;
         private IGenericRepository<PersonInfo> _personInfo;
         private IGenericRepository<Portfolio> _portfolio;
         private IGenericRepository<Item> _item;
@@ -35,6 +37,10 @@ namespace Steam_Invest.DAL.Repositories
 
         public IGenericRepository<AspNetUser> AspNetUsers
             => _aspNetUsers ?? (_aspNetUsers = new GenericRepository<AspNetUser>(_context));
+        //public IGenericRepository<AspNetRole> AspNetRoles
+        //    => _aspNetRoles ?? (_aspNetRoles = new GenericRepository<AspNetRole>(_context));
+        //public IGenericRepository<AspNetUserRole> AspNetUserRoles
+        //    => _aspNetUserRoles ?? (_aspNetUserRoles = new GenericRepository<AspNetUserRole>(_context));
         public IGenericRepository<PersonInfo> PersonInfo
             => _personInfo ?? (_personInfo = new GenericRepository<PersonInfo>(_context));
 

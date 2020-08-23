@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "+E9mzci/H6481PTTkcCR8qDCVt++wDC0fmF0tRBac0+1nlZWNSwY/wNNevylG5jLAUab4DWja1rLWHkslbb6jw==",
+  "dgSpecHash": "CmMdoyHSSnZ1edxJeYz+rZkIY+BdWGXMK5wdb2DzzLUfBrvGVjgBKUDHjpp4+dQtNms2xT3ebYeMjG0PKW/Q1g==",
   "success": true,
   "projectFilePath": "D:\\dev\\Steam_Invest\\Steam_Invest\\Steam_Invest.PRL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Pavel\\.nuget\\packages\\automapper\\10.0.0\\automapper.10.0.0.nupkg.sha512",
+    "C:\\Users\\Pavel\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\3.1.7\\microsoft.aspnetcore.authentication.jwtbearer.3.1.7.nupkg.sha512",
     "C:\\Users\\Pavel\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\3.1.7\\microsoft.aspnetcore.cryptography.internal.3.1.7.nupkg.sha512",
     "C:\\Users\\Pavel\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\3.1.7\\microsoft.aspnetcore.cryptography.keyderivation.3.1.7.nupkg.sha512",
     "C:\\Users\\Pavel\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",

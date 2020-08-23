@@ -21,6 +21,9 @@ using Steam_Invest.PRL.Mappings;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using System.IO;
 using Steam_Invest.DAL.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Steam_Invest.PRL.JWT;
 
 namespace Steam_Invest
 {
@@ -36,13 +39,29 @@ namespace Steam_Invest
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)//(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(options =>
+                    {
+                        options.RequireHttpsMetadata = false;
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateIssuer = true,
+                            ValidIssuer = AuthTokenOptions.ISSUER,
+                            ValidateAudience = false,
+                            ValidateLifetime = true,
+                            IssuerSigningKey = AuthTokenOptions.GetSymmetricSecurityKey(),
+                            ValidateIssuerSigningKey = true
+                        };
+                    });
+
             services.AddDbContext<Steam_InvestContext>(options =>
             {
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"),
                     b => b.MigrationsAssembly("Steam_Invest.DAL")).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             });
 
-            services.AddIdentity<AspNetUser, AspNetRole>().AddEntityFrameworkStores<Steam_InvestContext>().AddDefaultTokenProviders();
+            services.AddIdentity<AspNetUser, IdentityRole>().AddEntityFrameworkStores<Steam_InvestContext>().AddDefaultTokenProviders();
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -66,6 +85,32 @@ namespace Steam_Invest
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+                var basePath = AppContext.BaseDirectory;
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            },
+                            Scheme = "oauth2",
+                            Name = "Bearer",
+                            In = ParameterLocation.Header,
+
+                        },
+                        new List<string>()
+                    }
+                });
             });
 
 

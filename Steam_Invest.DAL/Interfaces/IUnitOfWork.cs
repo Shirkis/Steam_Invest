@@ -10,6 +10,8 @@ namespace Steam_Invest.DAL.Interfaces
     public interface IUnitOfWork : IDisposable
     {
         IGenericRepository<AspNetUser> AspNetUsers { get; }
+        //IGenericRepository<AspNetRole> AspNetRoles { get; }
+        //IGenericRepository<AspNetUserRole> AspNetUserRoles { get; }
         IGenericRepository<PersonInfo> PersonInfo { get; }
         IGenericRepository<Portfolio> Portfolios { get; }
         IGenericRepository<Item> Items { get; }

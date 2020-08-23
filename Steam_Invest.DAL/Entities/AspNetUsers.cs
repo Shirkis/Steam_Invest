@@ -9,5 +9,6 @@ namespace Steam_Invest.DAL.Entities
     {
         public int? PersonInfoId { get; set; }
         public PersonInfo PersonInfo { get; set; }
+        public virtual ICollection<AspNetUserRole> AspNetUserRoles { get; set; }
     }
 }

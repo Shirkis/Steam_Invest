@@ -146,7 +146,6 @@ D:\dev\Steam_Invest\Steam_Invest\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Fi
 D:\dev\Steam_Invest\Steam_Invest\bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileProviders.Embedded.dll
 D:\dev\Steam_Invest\Steam_Invest\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Core.dll
 D:\dev\Steam_Invest\Steam_Invest\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Stores.dll
-D:\dev\Steam_Invest\Steam_Invest\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 D:\dev\Steam_Invest\Steam_Invest\bin\Debug\netcoreapp3.1\Microsoft.Data.SqlClient.dll
 D:\dev\Steam_Invest\Steam_Invest\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.SqlServer.dll
 D:\dev\Steam_Invest\Steam_Invest\bin\Debug\netcoreapp3.1\Microsoft.Identity.Client.dll
@@ -189,8 +188,10 @@ D:\dev\Steam_Invest\Steam_Invest\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Fi
 D:\dev\Steam_Invest\Steam_Invest\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.Configuration.dll
 D:\dev\Steam_Invest\Steam_Invest\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.Console.dll
 D:\dev\Steam_Invest\Steam_Invest\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Options.ConfigurationExtensions.dll
+D:\dev\Steam_Invest\Steam_Invest\bin\Debug\netcoreapp3.1\ClientApp\package.json
+D:\dev\Steam_Invest\Steam_Invest\bin\Debug\netcoreapp3.1\ClientApp\public\manifest.json
+D:\dev\Steam_Invest\Steam_Invest\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\dev\Steam_Invest\Steam_Invest\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 D:\dev\Steam_Invest\Steam_Invest\obj\Debug\netcoreapp3.1\Steam_Invest.PRL.csproj.CoreCompileInputs.cache
 D:\dev\Steam_Invest\Steam_Invest\obj\Debug\netcoreapp3.1\Steam_Invest.PRL.MvcApplicationPartsAssemblyInfo.cs
 D:\dev\Steam_Invest\Steam_Invest\obj\Debug\netcoreapp3.1\Steam_Invest.PRL.MvcApplicationPartsAssemblyInfo.cache
-D:\dev\Steam_Invest\Steam_Invest\bin\Debug\netcoreapp3.1\ClientApp\package.json
-D:\dev\Steam_Invest\Steam_Invest\bin\Debug\netcoreapp3.1\ClientApp\public\manifest.json
