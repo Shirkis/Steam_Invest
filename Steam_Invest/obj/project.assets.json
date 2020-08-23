@@ -2989,10 +2989,7 @@
         },
         "runtime": {
           "bin/placeholder/Steam_Invest.BLL.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.AspNetCore.App"
-        ]
+        }
       },
       "Steam_Invest.DAL/1.0.0": {
         "type": "project",
@@ -3010,10 +3007,7 @@
         },
         "runtime": {
           "bin/placeholder/Steam_Invest.DAL.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.AspNetCore.App"
-        ]
+        }
       }
     }
   },
@@ -9522,27 +9516,20 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Pavel\\.nuget\\packages\\": {},
-    "D:\\Microsoft\\Xamarin\\NuGet\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\Julia\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\dev\\Steam_Invest\\Steam_Invest\\Steam_Invest.PRL.csproj",
+      "projectUniqueName": "D:\\OSPanel\\domains\\tochno2\\Steam_Invest\\Steam_Invest\\Steam_Invest.PRL.csproj",
       "projectName": "Steam_Invest.PRL",
-      "projectPath": "D:\\dev\\Steam_Invest\\Steam_Invest\\Steam_Invest.PRL.csproj",
-      "packagesPath": "C:\\Users\\Pavel\\.nuget\\packages\\",
-      "outputPath": "D:\\dev\\Steam_Invest\\Steam_Invest\\obj\\",
+      "projectPath": "D:\\OSPanel\\domains\\tochno2\\Steam_Invest\\Steam_Invest\\Steam_Invest.PRL.csproj",
+      "packagesPath": "C:\\Users\\Julia\\.nuget\\packages\\",
+      "outputPath": "D:\\OSPanel\\domains\\tochno2\\Steam_Invest\\Steam_Invest\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "D:\\Microsoft\\Xamarin\\NuGet\\",
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Pavel\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "C:\\Users\\Julia\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
@@ -9554,11 +9541,11 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "D:\\dev\\Steam_Invest\\Steam_Invest.BLL\\Steam_Invest.BLL.csproj": {
-              "projectPath": "D:\\dev\\Steam_Invest\\Steam_Invest.BLL\\Steam_Invest.BLL.csproj"
+            "D:\\OSPanel\\domains\\tochno2\\Steam_Invest\\Steam_Invest.BLL\\Steam_Invest.BLL.csproj": {
+              "projectPath": "D:\\OSPanel\\domains\\tochno2\\Steam_Invest\\Steam_Invest.BLL\\Steam_Invest.BLL.csproj"
             },
-            "D:\\dev\\Steam_Invest\\Steam_Invest.DAL\\Steam_Invest.DAL.csproj": {
-              "projectPath": "D:\\dev\\Steam_Invest\\Steam_Invest.DAL\\Steam_Invest.DAL.csproj"
+            "D:\\OSPanel\\domains\\tochno2\\Steam_Invest\\Steam_Invest.DAL\\Steam_Invest.DAL.csproj": {
+              "projectPath": "D:\\OSPanel\\domains\\tochno2\\Steam_Invest\\Steam_Invest.DAL\\Steam_Invest.DAL.csproj"
             }
           }
         }
@@ -9645,7 +9632,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
       }
     }
   }
