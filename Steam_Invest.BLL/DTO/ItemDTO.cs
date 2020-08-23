@@ -9,5 +9,8 @@ namespace Steam_Invest.BLL.DTO
         public int ItemId { get; set; }
         public string ItemName { get; set; }
         public string Price { get; set; }
+        public decimal? BuyPrice { get; set; }
+        public DateTime? BuyDate { get; set; }
+        public int? BuyCount { get; set; }
     }
 }

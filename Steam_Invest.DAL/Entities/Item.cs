@@ -12,6 +12,9 @@ namespace Steam_Invest.DAL.Entities
         public string ItemNameCode { get; set; }
         public int PortfolioId { get; set; }
         public int GameId { get; set; }
+        public decimal? BuyPrice { get; set; }
+        public DateTime? BuyDate { get; set; }
+        public int? BuyCount { get; set; }
 
         [ForeignKey("PortfolioId")]
         public virtual Portfolio Portfolio { get; set; }
