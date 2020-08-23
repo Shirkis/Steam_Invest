@@ -12,5 +12,6 @@ namespace Steam_Invest.BLL.DTO
         public bool Limited { get; set; }
         public int LimitCount { get; set; }
         public decimal? Balance { get; set; }
+        public int? CurrencyId { get; set; }
     }
 }

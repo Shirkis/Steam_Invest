@@ -21,6 +21,7 @@ namespace Steam_Invest.DAL.Repositories
         private IGenericRepository<Portfolio> _portfolio;
         private IGenericRepository<Item> _item;
         private IGenericRepository<Game> _game;
+        private IGenericRepository<Currency> _currency;
 
         #endregion
 
@@ -52,6 +53,9 @@ namespace Steam_Invest.DAL.Repositories
 
         public IGenericRepository<Game> Games
             => _game ?? (_game = new GenericRepository<Game>(_context));
+
+        public IGenericRepository<Currency> Currencies
+            => _currency ?? (_currency = new GenericRepository<Currency>(_context));
 
         #endregion
 

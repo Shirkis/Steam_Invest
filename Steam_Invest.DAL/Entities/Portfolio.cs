@@ -13,9 +13,13 @@ namespace Steam_Invest.DAL.Entities
         public bool Limited { get; set; }
         public int? LimitCount { get; set; }
         public decimal? Balance { get; set; }
+        public int? CurrencyId { get; set; }
 
         [ForeignKey("PersonInfoId")]
         public virtual PersonInfo PersonInfo { get; set; }
+
+        [ForeignKey("CurrencyId")]
+        public virtual Currency Currency { get; set; }
 
         public virtual ICollection<Item> Items { get; set; }
     }

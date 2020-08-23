@@ -44,7 +44,7 @@ namespace Steam_Invest.PRL.Controllers
         }
 
         [HttpGet("portfolio/{portfolioId}")]
-        public async Task<IActionResult> GetPortfolioById([FromQuery] int portfolioId)
+        public async Task<IActionResult> GetPortfolioById([FromRoute] int portfolioId)
         {
             var res = await _itemService.GetPortfolioById(portfolioId);
             return Ok(res);
@@ -59,14 +59,14 @@ namespace Steam_Invest.PRL.Controllers
         }
 
         [HttpPut("portfolio/{portfolioId}")]
-        public async Task<IActionResult> UpdatePortfolio([FromQuery] int portfolioId, [FromBody] PortfolioDTO model)
+        public async Task<IActionResult> UpdatePortfolio([FromRoute] int portfolioId, [FromBody] PortfolioDTO model)
         {
             await _itemService.UpdatePortfolio(portfolioId, model);
             return Ok();
         }
 
         [HttpDelete("portfolio/{portfolioId}")]
-        public async Task<IActionResult> DeletePortfolio([FromQuery] int portfolioId)
+        public async Task<IActionResult> DeletePortfolio([FromRoute] int portfolioId)
         {
             await _itemService.DeletePortfolio(portfolioId);
             return Ok();

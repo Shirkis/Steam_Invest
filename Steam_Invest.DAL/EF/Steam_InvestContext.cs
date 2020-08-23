@@ -23,6 +23,7 @@ namespace Steam_Invest.DAL.EF
         public virtual DbSet<Portfolio> Portfolios { get; set; }
         public virtual DbSet<Item> Items { get; set; }
         public virtual DbSet<Game> Games { get; set; }
+        public virtual DbSet<Currency> Currencies { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

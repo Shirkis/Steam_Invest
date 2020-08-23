@@ -114,12 +114,8 @@ namespace Steam_Invest.BLL.Services
         {
             try
             {
-                var oldportfolio = await _uow.Portfolios.Query()
-                    .Where(s => s.PortfolioId == portfolioId)
-                    .FirstOrDefaultAsync();
-
                 var portfolio = _mapper.Map<Portfolio>(model);
-                portfolio.PortfolioId = oldportfolio.PortfolioId;
+                portfolio.PortfolioId = portfolioId;
                 _uow.Portfolios.Update(portfolio);
                 await _uow.SaveChangesAsync();
             }
@@ -140,6 +136,7 @@ namespace Steam_Invest.BLL.Services
                     throw new Exception($"Не удалось найти сущность");
 
                 _uow.Portfolios.DeleteById(portfolioId);
+                await _uow.SaveChangesAsync();
             }
             catch (Exception ex)
             {
