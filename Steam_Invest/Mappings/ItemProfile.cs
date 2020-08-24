@@ -25,6 +25,9 @@ namespace Steam_Invest.PRL.Mappings
 
             CreateMap<Currency, CurrencyDTO>();
             CreateMap<CurrencyDTO, Currency>();
+
+            CreateMap<Item, ItemDTO>();
+            CreateMap<ItemDTO, Item>();
         }
     }
 }
