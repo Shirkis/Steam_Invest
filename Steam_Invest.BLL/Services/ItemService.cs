@@ -83,11 +83,11 @@ namespace Steam_Invest.BLL.Services
         {
             try
             {
-                var portfolios = await _uow.Portfolios.Query()
+                var portfolio = await _uow.Portfolios.Query()
                     .Where(s => s.PortfolioId == portfolioId)
                     .FirstOrDefaultAsync();
 
-                var res = _mapper.Map<PortfolioDTO>(portfolios);
+                var res = _mapper.Map<PortfolioDTO>(portfolio);
                 return res;
             }
             catch (Exception ex)

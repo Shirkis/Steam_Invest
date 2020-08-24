@@ -19,6 +19,12 @@ namespace Steam_Invest.PRL.Mappings
             CreateMap<Portfolio, PortfolioDTO>();
             CreateMap<PortfolioDTO, Portfolio>();
             CreateMap<RegisterBindingModel, PersonInfo>();
+
+            CreateMap<Game, GameDTO>();
+            CreateMap<GameDTO, Game>();
+
+            CreateMap<Currency, CurrencyDTO>();
+            CreateMap<CurrencyDTO, Currency>();
         }
     }
 }

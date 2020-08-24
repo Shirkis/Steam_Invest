@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Steam_Invest.DAL.Entities
+namespace Steam_Invest.BLL.DTO
 {
-    public class Game
+    public class GameDTO
     {
         public int GameId { get; set; }
         public string GameName { get; set; }
         public int? GameSteamId { get; set; }
-
-        public virtual ICollection<Item> Items { get; set; }
     }
 }
