@@ -25,11 +25,46 @@ namespace Steam_Invest.PRL.Controllers
 
         #region Item
 
-        [HttpGet("item/{itemName}")]
-        public async Task<IActionResult> GetItemByName([FromRoute] string itemName, string game)
+        //[HttpGet("item/{itemName}")]
+        //public async Task<IActionResult> GetItemByName([FromRoute] string itemName, string game)
+        //{
+        //    var res = await _itemService.GetItemByName(itemName, game);
+        //    return Ok(res);
+        //}
+
+        [HttpGet("portfolio/{portfolioId}/items")]
+        public async Task<IActionResult> GetItemsByPortfolio([FromRoute] int portfolioId)
         {
-            var res = await _itemService.GetItemByName(itemName, game);
+            var res = await _itemService.GetItemsByPortfolio(portfolioId);
             return Ok(res);
+        }
+
+        [HttpGet("item/{itemId}")]
+        public async Task<IActionResult> GetItemById([FromRoute] int itemId)
+        {
+            var res = await _itemService.GetItemById(itemId);
+            return Ok(res);
+        }
+
+        [HttpPost("item")]
+        public async Task<IActionResult> CreateItem([FromBody] ItemDTO model)
+        {
+            await _itemService.CreateItem(model);
+            return Ok();
+        }
+
+        [HttpPut("item/{itemId}")]
+        public async Task<IActionResult> UpdateItem([FromRoute] int itemId, [FromBody] ItemDTO model)
+        {
+            await _itemService.UpdateItem(itemId, model);
+            return Ok();
+        }
+
+        [HttpDelete("item/{itemId}")]
+        public async Task<IActionResult> DeleteItem([FromRoute] int itemId)
+        {
+            await _itemService.DeleteItem(itemId);
+            return Ok();
         }
 
         #endregion
@@ -71,6 +106,7 @@ namespace Steam_Invest.PRL.Controllers
             await _itemService.DeletePortfolio(portfolioId);
             return Ok();
         }
+
         #endregion
     }
 }

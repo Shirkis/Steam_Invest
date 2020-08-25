@@ -26,37 +26,119 @@ namespace Steam_Invest.BLL.Services
         }
 
         #region Item
-        public async Task<ItemDTO> GetItemByName(string itemName, string game)
+        //public async Task<ItemDTO> GetItemByName(string itemName, string game)
+        //{
+        //    var client = new HttpClient();
+        //    var urlcode = Uri.EscapeUriString(itemName);
+        //    urlcode = urlcode.Replace("(", "%28").Replace(")", "%29");
+        //    var gameId = 0;
+        //    if (game.Contains("cs"))
+        //    {
+        //        gameId = 730;
+        //    }
+        //    var reqItem = await client.GetAsync($"https://steamcommunity.com/market/listings/{gameId}/{urlcode}");
+        //    var itemstring = await reqItem.Content.ReadAsStringAsync();
+        //    var findId = "Market_LoadOrderSpread";
+        //    var fitmindex = itemstring.IndexOf(findId);
+        //    var itemfirstcut = itemstring.Substring(fitmindex + 24);
+        //    var sitemindex = itemfirstcut.IndexOf(")");
+        //    var itemsecondcur = itemfirstcut.Substring(0, sitemindex - 1);
+        //    var reqpriceurl = $"https://steamcommunity.com/market/itemordershistogram?country=RU&language=russian&currency=5&item_nameid={itemsecondcur}&two_factor=0";
+        //    var reqprice = await client.GetAsync(reqpriceurl);
+        //    var reqString = await reqprice.Content.ReadAsStringAsync();
+        //    var findprice = "sell_order_graph";
+        //    var firstindex = reqString.IndexOf(findprice);
+        //    var firstcut = reqString.Substring(firstindex + 20);
+        //    var secondindex = firstcut.IndexOf(",");
+        //    var price = firstcut.Substring(0, secondindex);
+        //    ItemDTO res = new ItemDTO
+        //    {
+        //        ItemName = itemName,
+        //        Price = price
+        //    };
+        //    return res;
+        //}
+
+        public async Task<List<ItemDTO>> GetItemsByPortfolio(int portfolioId)
         {
-            var client = new HttpClient();
-            var urlcode = Uri.EscapeUriString(itemName);
-            urlcode = urlcode.Replace("(", "%28").Replace(")", "%29");
-            var gameId = 0;
-            if (game.Contains("cs"))
+            try
             {
-                gameId = 730;
+                var items = await _uow.Items.Query()
+                    .Where(s => s.PortfolioId == portfolioId)
+                    .ToListAsync();
+
+                var res = _mapper.Map<List<ItemDTO>>(items);
+                return res;
             }
-            var reqItem = await client.GetAsync($"https://steamcommunity.com/market/listings/{gameId}/{urlcode}");
-            var itemstring = await reqItem.Content.ReadAsStringAsync();
-            var findId = "Market_LoadOrderSpread";
-            var fitmindex = itemstring.IndexOf(findId);
-            var itemfirstcut = itemstring.Substring(fitmindex + 24);
-            var sitemindex = itemfirstcut.IndexOf(")");
-            var itemsecondcur = itemfirstcut.Substring(0, sitemindex - 1);
-            var reqpriceurl = $"https://steamcommunity.com/market/itemordershistogram?country=RU&language=russian&currency=5&item_nameid={itemsecondcur}&two_factor=0";
-            var reqprice = await client.GetAsync(reqpriceurl);
-            var reqString = await reqprice.Content.ReadAsStringAsync();
-            var findprice = "sell_order_graph";
-            var firstindex = reqString.IndexOf(findprice);
-            var firstcut = reqString.Substring(firstindex + 20);
-            var secondindex = firstcut.IndexOf(",");
-            var price = firstcut.Substring(0, secondindex);
-            ItemDTO res = new ItemDTO
+            catch (Exception ex)
             {
-                ItemName = itemName,
-                Price = price
-            };
-            return res;
+                throw;
+            }
+        }
+
+        public async Task<ItemDTO> GetItemById(int itemId)
+        {
+            try
+            {
+                var item = await _uow.Items.Query()
+                    .Where(s => s.ItemId == itemId)
+                    .FirstOrDefaultAsync();
+
+                var res = _mapper.Map<ItemDTO>(item);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public async Task CreateItem(ItemDTO model)
+        {
+            try
+            {
+                var newitem = _mapper.Map<Item>(model);
+                _uow.Items.Add(newitem);
+                await _uow.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public async Task UpdateItem(int itemId, ItemDTO model)
+        {
+            try
+            {
+                var item = _mapper.Map<Item>(model);
+                item.ItemId= itemId;
+                _uow.Items.Update(item);
+                await _uow.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public async Task DeleteItem(int itemId)
+        {
+            try
+            {
+                var olditem = await _uow.Items.Query()
+                    .Where(s => s.ItemId == itemId)
+                    .FirstOrDefaultAsync();
+                if (olditem == null)
+                    throw new Exception($"Не удалось найти сущность");
+
+                _uow.Items.DeleteById(itemId);
+                await _uow.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         #endregion
@@ -83,11 +165,11 @@ namespace Steam_Invest.BLL.Services
         {
             try
             {
-                var portfolios = await _uow.Portfolios.Query()
+                var portfolio = await _uow.Portfolios.Query()
                     .Where(s => s.PortfolioId == portfolioId)
                     .FirstOrDefaultAsync();
 
-                var res = _mapper.Map<PortfolioDTO>(portfolios);
+                var res = _mapper.Map<PortfolioDTO>(portfolio);
                 return res;
             }
             catch (Exception ex)

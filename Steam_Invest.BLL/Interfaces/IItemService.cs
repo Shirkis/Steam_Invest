@@ -10,8 +10,14 @@ namespace Steam_Invest.BLL.Interfaces
     {
         #region Item
 
-        Task<ItemDTO> GetItemByName(string itemName, string game);
-        
+        //Task<ItemDTO> GetItemByName(string itemName, string game);
+
+        Task<List<ItemDTO>> GetItemsByPortfolio(int portfolioId);
+        Task<ItemDTO> GetItemById(int itemId);
+        Task CreateItem(ItemDTO model);
+        Task UpdateItem(int itemId, ItemDTO model);
+        Task DeleteItem(int itemId);
+
         #endregion
 
         #region Portfolio

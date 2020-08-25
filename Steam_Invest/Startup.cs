@@ -79,6 +79,7 @@ namespace Steam_Invest
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services.AddControllers();
@@ -120,6 +121,7 @@ namespace Steam_Invest
 
 
             services.AddTransient<IItemService, ItemService>();
+            services.AddTransient<IDictionaryService, DictionaryService>();
 
             var config = new AutoMapper.MapperConfiguration(cfg =>
             {
