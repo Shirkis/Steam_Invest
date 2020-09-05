@@ -59,7 +59,7 @@ namespace Steam_Invest.BLL.Services
         //    return res;
         //}
 
-        public async Task<List<ItemDTO>> GetItemsByPortfolio(int portfolioId)
+        public async Task<List<ItemInfoDTO>> GetItemsByPortfolio(int portfolioId)
         {
             try
             {
@@ -67,7 +67,7 @@ namespace Steam_Invest.BLL.Services
                     .Where(s => s.PortfolioId == portfolioId)
                     .ToListAsync();
 
-                var res = _mapper.Map<List<ItemDTO>>(items);
+                var res = _mapper.Map<List<ItemInfoDTO>>(items);
                 return res;
             }
             catch (Exception ex)
@@ -76,7 +76,7 @@ namespace Steam_Invest.BLL.Services
             }
         }
 
-        public async Task<ItemDTO> GetItemById(int itemId)
+        public async Task<ItemInfoDTO> GetItemById(int itemId)
         {
             try
             {
@@ -84,7 +84,7 @@ namespace Steam_Invest.BLL.Services
                     .Where(s => s.ItemId == itemId)
                     .FirstOrDefaultAsync();
 
-                var res = _mapper.Map<ItemDTO>(item);
+                var res = _mapper.Map<ItemInfoDTO>(item);
                 return res;
             }
             catch (Exception ex)
@@ -93,12 +93,16 @@ namespace Steam_Invest.BLL.Services
             }
         }
 
-        public async Task CreateItem(ItemDTO model)
+        public async Task CreateItem(ItemChangeDTO model)
         {
             try
             {
                 var newitem = _mapper.Map<Item>(model);
                 _uow.Items.Add(newitem);
+                await _uow.SaveChangesAsync();
+                var newpurchase = _mapper.Map<Purchase>(model.Purchase);
+                newpurchase.ItemId = newitem.ItemId;
+                _uow.Purchases.Add(newpurchase);
                 await _uow.SaveChangesAsync();
             }
             catch (Exception ex)
@@ -107,7 +111,7 @@ namespace Steam_Invest.BLL.Services
             }
         }
 
-        public async Task UpdateItem(int itemId, ItemDTO model)
+        public async Task UpdateItem(int itemId, ItemChangeDTO model)
         {
             try
             {
@@ -128,11 +132,168 @@ namespace Steam_Invest.BLL.Services
             {
                 var olditem = await _uow.Items.Query()
                     .Where(s => s.ItemId == itemId)
+                    .Include(s => s.Purchases)
                     .FirstOrDefaultAsync();
                 if (olditem == null)
                     throw new Exception($"Не удалось найти сущность");
 
+                foreach (var purch in olditem.Purchases)
+                {
+                    _uow.Purchases.DeleteById(purch.PurchaseId);
+                }
+                await _uow.SaveChangesAsync();
                 _uow.Items.DeleteById(itemId);
+                await _uow.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        #endregion
+
+        #region Purchase
+
+        public async Task<List<PurchaseInfoDTO>> GetPurchaseByItem(int itemId)
+        {
+            try
+            {
+                var purchases = await _uow.Purchases.Query()
+                    .Where(s => s.ItemId == itemId)
+                    .ToListAsync();
+                var res = _mapper.Map<List<PurchaseInfoDTO>>(purchases);
+                foreach (var r in res)
+                {
+                    r.SumPurchasePrice = r.BuyPrice * r.BuyCount;
+                }
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public async Task<PurchaseInfoDTO> GetPurchaseById(int purchaseId)
+        {
+            try
+            {
+                var purchase = await _uow.Purchases.Query()
+                    .Where(s => s.ItemId == purchaseId)
+                    .FirstOrDefaultAsync();
+
+                var res = _mapper.Map<PurchaseInfoDTO>(purchase);
+                res.SumPurchasePrice = res.BuyPrice * res.BuyCount;
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public async Task CreatePurchase(PurchaseDTO model)
+        {
+            try
+            {
+                var item = await _uow.Items.Query()
+                    .Where(s => s.ItemId == model.ItemId)
+                    .Include(s => s.Purchases)
+                    .FirstOrDefaultAsync();
+                decimal? sumprice = 0;
+                foreach (var purch in item.Purchases)
+                {
+                    sumprice += purch.BuyPrice * purch.BuyCount;
+                }
+                item.AllBuyCount = item.AllBuyCount + model.BuyCount;
+                item.AvgBuyPrice = (sumprice + (model.BuyPrice * model.BuyCount)) / item.AllBuyCount;
+                item.SumBuyPrice = sumprice + (model.BuyPrice * model.BuyCount);
+                _uow.Items.Update(item);
+                var newpurchase = _mapper.Map<Purchase>(model);
+                _uow.Purchases.Add(newpurchase);
+                await _uow.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public async Task UpdatePurchase(int purchaseId, PurchaseDTO model)
+        {
+            try
+            {
+                var purchase = _mapper.Map<Purchase>(model);
+                purchase.PurchaseId = purchaseId;
+                _uow.Purchases.Update(purchase);
+                await _uow.SaveChangesAsync();
+                var itemId = await _uow.Purchases.Query()
+                    .Where(s => s.PurchaseId == purchaseId)
+                    .Include(s => s.Item)
+                    .Select(s => s.ItemId)
+                    .FirstOrDefaultAsync();
+                var item = await _uow.Items.Query()
+                    .Where(s => s.ItemId == itemId)
+                    .Include(s => s.Purchases)
+                    .FirstOrDefaultAsync();
+                decimal? sumprice = 0;
+                int? sumcount = 0;
+                foreach (var purch in item.Purchases)
+                {
+                    sumprice += purch.BuyPrice * purch.BuyCount;
+                    sumcount += purch.BuyCount;
+                }
+                item.AllBuyCount = sumcount;
+                item.AvgBuyPrice = sumprice / sumcount;
+                item.SumBuyPrice = sumprice;
+                if (item.FirstBuyDate > model.BuyDate)
+                {
+                    item.FirstBuyDate = model.BuyDate;
+                }
+                _uow.Items.Update(item);
+                await _uow.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public async Task DeletePurchase(int purchaseId)
+        {
+            try
+            {
+                var oldpurchase = await _uow.Purchases.Query()
+                    .Where(s => s.PurchaseId == purchaseId)
+                    .FirstOrDefaultAsync();
+                if (oldpurchase== null)
+                    throw new Exception($"Не удалось найти сущность");
+
+                var itemId = oldpurchase.ItemId;
+                _uow.Purchases.DeleteById(purchaseId);
+                await _uow.SaveChangesAsync();
+                var item = await _uow.Items.Query()
+                    .Where(s => s.ItemId == itemId)
+                    .Include(s => s.Purchases)
+                    .FirstOrDefaultAsync();
+                decimal? sumprice = 0;
+                int? sumcount = 0;
+                DateTime? fday = new DateTime(9999, 1, 1);
+                foreach (var purch in item.Purchases)
+                {
+                    sumprice += purch.BuyPrice * purch.BuyCount;
+                    sumcount += purch.BuyCount;
+                    if (fday > purch.BuyDate)
+                    {
+                        fday = purch.BuyDate;
+                    }
+                }
+                item.AllBuyCount = sumcount;
+                item.AvgBuyPrice = sumprice / sumcount;
+                item.SumBuyPrice = sumprice;
+                item.FirstBuyDate = fday;
+                _uow.Items.Update(item);
                 await _uow.SaveChangesAsync();
             }
             catch (Exception ex)

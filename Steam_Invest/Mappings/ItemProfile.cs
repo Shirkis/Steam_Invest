@@ -28,6 +28,17 @@ namespace Steam_Invest.PRL.Mappings
 
             CreateMap<Item, ItemDTO>();
             CreateMap<ItemDTO, Item>();
+
+            CreateMap<ItemChangeDTO, Item>()
+                .ForMember(s => s.AllBuyCount, s => s.MapFrom(c => c.Purchase.BuyCount))
+                .ForMember(s => s.AvgBuyPrice, s => s.MapFrom(c => c.Purchase.BuyPrice))
+                .ForMember(s => s.FirstBuyDate, s => s.MapFrom(c => c.Purchase.BuyDate));
+
+            CreateMap<PurchaseDTO, Purchase>();
+            CreateMap<Purchase, PurchaseDTO>();
+
+            CreateMap<Purchase, PurchaseInfoDTO>();
+            CreateMap<Item, ItemInfoDTO>();
         }
     }
 }

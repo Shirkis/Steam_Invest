@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Steam_Invest.BLL.DTO
 {
-    public class ItemDTO
+    public class ItemInfoDTO
     {
         public int ItemId { get; set; }
         public string ItemName { get; set; }
@@ -14,5 +14,6 @@ namespace Steam_Invest.BLL.DTO
         public decimal? AvgBuyPrice { get; set; }
         public DateTime? FirstBuyDate { get; set; }
         public int? AllBuyCount { get; set; }
+        public decimal? SumBuyPrice { get; set; }
     }
 }

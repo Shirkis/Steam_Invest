@@ -4,15 +4,13 @@ using System.Text;
 
 namespace Steam_Invest.BLL.DTO
 {
-    public class ItemDTO
+    public class ItemChangeDTO
     {
         public int ItemId { get; set; }
         public string ItemName { get; set; }
         public string ItemNameCode { get; set; }
         public int PortfolioId { get; set; }
         public int? GameId { get; set; }
-        public decimal? AvgBuyPrice { get; set; }
-        public DateTime? FirstBuyDate { get; set; }
-        public int? AllBuyCount { get; set; }
+        public PurchaseDTO Purchase { get; set; }
     }
 }

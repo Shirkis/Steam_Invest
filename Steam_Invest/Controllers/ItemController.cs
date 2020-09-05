@@ -47,14 +47,14 @@ namespace Steam_Invest.PRL.Controllers
         }
 
         [HttpPost("item")]
-        public async Task<IActionResult> CreateItem([FromBody] ItemDTO model)
+        public async Task<IActionResult> CreateItem([FromBody] ItemChangeDTO model)
         {
             await _itemService.CreateItem(model);
             return Ok();
         }
 
         [HttpPut("item/{itemId}")]
-        public async Task<IActionResult> UpdateItem([FromRoute] int itemId, [FromBody] ItemDTO model)
+        public async Task<IActionResult> UpdateItem([FromRoute] int itemId, [FromBody] ItemChangeDTO model)
         {
             await _itemService.UpdateItem(itemId, model);
             return Ok();
@@ -64,6 +64,45 @@ namespace Steam_Invest.PRL.Controllers
         public async Task<IActionResult> DeleteItem([FromRoute] int itemId)
         {
             await _itemService.DeleteItem(itemId);
+            return Ok();
+        }
+
+        #endregion
+
+        #region Purchase
+
+        [HttpGet("item/{itemId}/purchase")]
+        public async Task<IActionResult> GetPurchaseByItem([FromRoute] int itemId)
+        {
+            var res = await _itemService.GetPurchaseByItem(itemId);
+            return Ok(res);
+        }
+
+        [HttpGet("purchase/{purchaseId}")]
+        public async Task<IActionResult> GetPurchaseById([FromRoute] int purchaseId)
+        {
+            var res = await _itemService.GetPurchaseById(purchaseId);
+            return Ok(res);
+        }
+
+        [HttpPost("purchase")]
+        public async Task<IActionResult> CreatePurchase([FromBody] PurchaseDTO model)
+        {
+            await _itemService.CreatePurchase(model);
+            return Ok();
+        }
+
+        [HttpPut("purchase/{purchaseId}")]
+        public async Task<IActionResult> UpdatePurchase([FromRoute] int purchaseId, [FromBody] PurchaseDTO model)
+        {
+            await _itemService.UpdatePurchase(purchaseId, model);
+            return Ok();
+        }
+
+        [HttpDelete("purchase/{purchaseId}")]
+        public async Task<IActionResult> DeletePurchase([FromRoute] int purchaseId)
+        {
+            await _itemService.DeletePurchase(purchaseId);
             return Ok();
         }
 

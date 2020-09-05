@@ -12,10 +12,10 @@ namespace Steam_Invest.BLL.Interfaces
 
         //Task<ItemDTO> GetItemByName(string itemName, string game);
 
-        Task<List<ItemDTO>> GetItemsByPortfolio(int portfolioId);
-        Task<ItemDTO> GetItemById(int itemId);
-        Task CreateItem(ItemDTO model);
-        Task UpdateItem(int itemId, ItemDTO model);
+        Task<List<ItemInfoDTO>> GetItemsByPortfolio(int portfolioId);
+        Task<ItemInfoDTO> GetItemById(int itemId);
+        Task CreateItem(ItemChangeDTO model);
+        Task UpdateItem(int itemId, ItemChangeDTO model);
         Task DeleteItem(int itemId);
 
         #endregion
@@ -28,6 +28,16 @@ namespace Steam_Invest.BLL.Interfaces
         Task CreatePortfolio(PortfolioDTO model);
         Task UpdatePortfolio(int portfolioId, PortfolioDTO model);
         Task DeletePortfolio(int portfolioId);
+
+        #endregion
+
+        #region Purchase
+
+        Task<List<PurchaseInfoDTO>> GetPurchaseByItem(int itemId);
+        Task<PurchaseInfoDTO> GetPurchaseById(int purchaseId);
+        Task CreatePurchase(PurchaseDTO model);
+        Task UpdatePurchase(int purchaseId, PurchaseDTO model);
+        Task DeletePurchase(int purchaseId);
 
         #endregion
     }
