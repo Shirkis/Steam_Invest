@@ -1,5 +1,6 @@
+import React from "react";
 const PortfolioForm = (props) => {
-    return (<div>from PortfolioForm</div>);
+    return (<div></div>);
 }
 
 export default PortfolioForm;

@@ -11,6 +11,7 @@ export const ACTION_TYPES = {
 export const fetchAll = () => dispatch => {
     api.portfolio().fetchAll()
         .then(response => {
+            console.log(response)
             dispatch({
                 type: ACTION_TYPES.FETCH_ALL,
                 payload: response.data
