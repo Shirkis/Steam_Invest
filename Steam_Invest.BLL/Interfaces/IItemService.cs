@@ -29,6 +29,8 @@ namespace Steam_Invest.BLL.Interfaces
         Task UpdatePortfolio(int portfolioId, PortfolioDTO model);
         Task DeletePortfolio(int portfolioId);
 
+        Task AddBalancePortfolio(int portfolioId, decimal balance);
+
         #endregion
 
         #region Purchase

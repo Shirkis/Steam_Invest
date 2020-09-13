@@ -104,6 +104,12 @@ namespace Steam_Invest.BLL.Services
                 newpurchase.ItemId = newitem.ItemId;
                 _uow.Purchases.Add(newpurchase);
                 await _uow.SaveChangesAsync();
+                var portfolio = await _uow.Portfolios.Query()
+                    .Where(s => s.PortfolioId == model.PortfolioId)
+                    .FirstOrDefaultAsync();
+                portfolio.Balance -= model.Purchase.BuyPrice * model.Purchase.BuyCount;
+                _uow.Portfolios.Update(portfolio);
+                await _uow.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -111,6 +117,8 @@ namespace Steam_Invest.BLL.Services
             }
         }
 
+
+        //не используется
         public async Task UpdateItem(int itemId, ItemChangeDTO model)
         {
             try
@@ -213,6 +221,15 @@ namespace Steam_Invest.BLL.Services
                 var newpurchase = _mapper.Map<Purchase>(model);
                 _uow.Purchases.Add(newpurchase);
                 await _uow.SaveChangesAsync();
+
+                var portfolio = await _uow.Items.Query()
+                    .Where(s => s.ItemId == model.ItemId)
+                    .Include(s => s.Portfolio)
+                    .Select(s => s.Portfolio)
+                    .FirstOrDefaultAsync();
+                portfolio.Balance -= model.BuyPrice * model.BuyCount;
+                _uow.Portfolios.Update(portfolio);
+                await _uow.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -224,6 +241,10 @@ namespace Steam_Invest.BLL.Services
         {
             try
             {
+                var oldpurchase = await _uow.Purchases.Query()
+                    .Where(s => s.PurchaseId == purchaseId)
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync();
                 var purchase = _mapper.Map<Purchase>(model);
                 purchase.PurchaseId = purchaseId;
                 _uow.Purchases.Update(purchase);
@@ -252,6 +273,14 @@ namespace Steam_Invest.BLL.Services
                     item.FirstBuyDate = model.BuyDate;
                 }
                 _uow.Items.Update(item);
+                await _uow.SaveChangesAsync();
+
+                var portfolio = await _uow.Portfolios.Query()
+                    .Where(s => s.PortfolioId == item.PortfolioId)
+                    .FirstOrDefaultAsync();
+                portfolio.Balance += oldpurchase.BuyPrice * oldpurchase.BuyCount;
+                portfolio.Balance -= model.BuyPrice * model.BuyCount;
+                _uow.Portfolios.Update(portfolio);
                 await _uow.SaveChangesAsync();
             }
             catch (Exception ex)
@@ -294,6 +323,13 @@ namespace Steam_Invest.BLL.Services
                 item.SumBuyPrice = sumprice;
                 item.FirstBuyDate = fday;
                 _uow.Items.Update(item);
+                await _uow.SaveChangesAsync();
+
+                var portfolio = await _uow.Portfolios.Query()
+                    .Where(s => s.PortfolioId == item.PortfolioId)
+                    .FirstOrDefaultAsync();
+                portfolio.Balance += oldpurchase.BuyPrice * oldpurchase.BuyCount;
+                _uow.Portfolios.Update(portfolio);
                 await _uow.SaveChangesAsync();
             }
             catch (Exception ex)
@@ -385,6 +421,16 @@ namespace Steam_Invest.BLL.Services
             {
                 throw;
             }
+        }
+
+        public async Task AddBalancePortfolio(int portfolioId, decimal balance)
+        {
+            var portfolio = await _uow.Portfolios.Query()
+                .Where(s => s.PortfolioId == portfolioId)
+                .FirstOrDefaultAsync();
+            portfolio.Balance += balance;
+            _uow.Portfolios.Update(portfolio);
+            await _uow.SaveChangesAsync();
         }
 
         #endregion

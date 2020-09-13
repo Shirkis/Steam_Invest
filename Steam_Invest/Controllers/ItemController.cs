@@ -139,6 +139,13 @@ namespace Steam_Invest.PRL.Controllers
             return Ok();
         }
 
+        [HttpPost("portfolio/{portfolioId}/balance")]
+        public async Task<IActionResult> AddBalancePortfolio([FromRoute]int portfolioId, decimal balance)
+        {
+            await _itemService.AddBalancePortfolio(portfolioId, balance);
+            return Ok();
+        }
+
         [HttpDelete("portfolio/{portfolioId}")]
         public async Task<IActionResult> DeletePortfolio([FromRoute] int portfolioId)
         {
