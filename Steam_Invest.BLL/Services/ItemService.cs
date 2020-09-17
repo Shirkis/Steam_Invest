@@ -175,7 +175,7 @@ namespace Steam_Invest.BLL.Services
                 var res = _mapper.Map<List<PurchaseInfoDTO>>(purchases);
                 foreach (var r in res)
                 {
-                    r.SumPurchasePrice = r.BuyPrice * r.BuyCount;
+                    r.SumPrice = r.Price * r.Count;
                 }
                 return res;
             }
@@ -194,7 +194,7 @@ namespace Steam_Invest.BLL.Services
                     .FirstOrDefaultAsync();
 
                 var res = _mapper.Map<PurchaseInfoDTO>(purchase);
-                res.SumPurchasePrice = res.BuyPrice * res.BuyCount;
+                res.SumPrice = res.Price * res.Count;
                 return res;
             }
             catch (Exception ex)
@@ -214,11 +214,20 @@ namespace Steam_Invest.BLL.Services
                 decimal? sumprice = 0;
                 foreach (var purch in item.Purchases)
                 {
-                    sumprice += purch.BuyPrice * purch.BuyCount;
+                    sumprice += purch.Price * purch.Count;
                 }
-                item.AllBuyCount = item.AllBuyCount + model.BuyCount;
-                item.AvgBuyPrice = (sumprice + (model.BuyPrice * model.BuyCount)) / item.AllBuyCount;
-                item.SumBuyPrice = sumprice + (model.BuyPrice * model.BuyCount);
+                if (model.IsSale == false)
+                {
+                    item.AllBuyCount = item.AllBuyCount + model.Count;
+                    item.AvgBuyPrice = (sumprice + (model.Price * model.Count)) / item.AllBuyCount;
+                    item.SumBuyPrice = sumprice + (model.Price * model.Count);
+                }
+                else
+                {
+                    item.AllBuyCount = item.AllBuyCount - model.Count;
+                    item.AvgBuyPrice = (sumprice - (model.Price * model.Count)) / item.AllBuyCount;
+                    item.SumBuyPrice = sumprice - (model.Price * model.Count);
+                }
                 _uow.Items.Update(item);
                 var newpurchase = _mapper.Map<Purchase>(model);
                 _uow.Purchases.Add(newpurchase);
@@ -229,7 +238,14 @@ namespace Steam_Invest.BLL.Services
                     .Include(s => s.Portfolio)
                     .Select(s => s.Portfolio)
                     .FirstOrDefaultAsync();
-                portfolio.Balance -= model.BuyPrice * model.BuyCount;
+                if (model.IsSale == false)
+                {
+                    portfolio.Balance -= model.Price * model.Count;
+                }
+                else
+                {
+                    portfolio.Balance += model.Price * model.Count;
+                }
                 _uow.Portfolios.Update(portfolio);
                 await _uow.SaveChangesAsync();
             }
@@ -264,15 +280,23 @@ namespace Steam_Invest.BLL.Services
                 int? sumcount = 0;
                 foreach (var purch in item.Purchases)
                 {
-                    sumprice += purch.BuyPrice * purch.BuyCount;
-                    sumcount += purch.BuyCount;
+                    if (purch.IsSale == false)
+                    {
+                        sumprice += purch.Price * purch.Count;
+                        sumcount += purch.Count;
+                    }
+                    else
+                    {
+                        sumprice -= purch.Price * purch.Count;
+                        sumcount -= purch.Count;
+                    }
                 }
                 item.AllBuyCount = sumcount;
                 item.AvgBuyPrice = sumprice / sumcount;
                 item.SumBuyPrice = sumprice;
-                if (item.FirstBuyDate > model.BuyDate)
+                if (item.FirstBuyDate > model.Date)
                 {
-                    item.FirstBuyDate = model.BuyDate;
+                    item.FirstBuyDate = model.Date;
                 }
                 _uow.Items.Update(item);
                 await _uow.SaveChangesAsync();
@@ -280,8 +304,16 @@ namespace Steam_Invest.BLL.Services
                 var portfolio = await _uow.Portfolios.Query()
                     .Where(s => s.PortfolioId == item.PortfolioId)
                     .FirstOrDefaultAsync();
-                portfolio.Balance += oldpurchase.BuyPrice * oldpurchase.BuyCount;
-                portfolio.Balance -= model.BuyPrice * model.BuyCount;
+                if (oldpurchase.IsSale == false)
+                {
+                    portfolio.Balance += oldpurchase.Price * oldpurchase.Count;
+                    portfolio.Balance -= model.Price * model.Count;
+                }
+                else
+                {
+                    portfolio.Balance -= oldpurchase.Price * oldpurchase.Count;
+                    portfolio.Balance += model.Price * model.Count;
+                }
                 _uow.Portfolios.Update(portfolio);
                 await _uow.SaveChangesAsync();
             }
@@ -313,11 +345,19 @@ namespace Steam_Invest.BLL.Services
                 DateTime? fday = new DateTime(9999, 1, 1);
                 foreach (var purch in item.Purchases)
                 {
-                    sumprice += purch.BuyPrice * purch.BuyCount;
-                    sumcount += purch.BuyCount;
-                    if (fday > purch.BuyDate)
+                    if (purch.IsSale == false)
                     {
-                        fday = purch.BuyDate;
+                        sumprice += purch.Price * purch.Count;
+                        sumcount += purch.Count;
+                    }
+                    else
+                    {
+                        sumprice -= purch.Price * purch.Count;
+                        sumcount -= purch.Count;
+                    }
+                    if (fday > purch.Date)
+                    {
+                        fday = purch.Date;
                     }
                 }
                 item.AllBuyCount = sumcount;
@@ -330,7 +370,14 @@ namespace Steam_Invest.BLL.Services
                 var portfolio = await _uow.Portfolios.Query()
                     .Where(s => s.PortfolioId == item.PortfolioId)
                     .FirstOrDefaultAsync();
-                portfolio.Balance += oldpurchase.BuyPrice * oldpurchase.BuyCount;
+                if (oldpurchase.IsSale == false)
+                {
+                    portfolio.Balance += oldpurchase.Price * oldpurchase.Count;
+                }
+                else
+                {
+                    portfolio.Balance -= oldpurchase.Price * oldpurchase.Count;
+                }
                 _uow.Portfolios.Update(portfolio);
                 await _uow.SaveChangesAsync();
             }
