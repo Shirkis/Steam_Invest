@@ -1,8 +1,5 @@
 import axios from "axios";
-import { backendUrl } from 'config'
-const baseUrl = "https://localhost:44326/api/"
-
-
+const backendUrl = "https://localhost:44326";
 
 export const getItemsForPortfolio = () => dispatch => {
     axios.get(`${backendUrl}/api/portfolio/4/items`)

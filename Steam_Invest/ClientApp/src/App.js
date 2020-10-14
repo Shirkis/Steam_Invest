@@ -1,14 +1,16 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { store } from "./actions/store";
+import configureStore from './store/configureStore'
 import { Provider } from "react-redux";
-import Portfolios from './components/Portfolios';
+import ItemPage from './components/item/ItemPage';
+
+const store = configureStore()
 
 function App() {
   return (
     <Provider store={store}>
-      <Portfolios />
+      <ItemPage />
     </Provider>
   );
 }
