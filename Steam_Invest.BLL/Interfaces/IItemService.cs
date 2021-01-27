@@ -1,4 +1,5 @@
-﻿using Steam_Invest.BLL.DTO;
+﻿using Steam_Invest.BLL.BankClasses;
+using Steam_Invest.BLL.DTO;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -40,6 +41,10 @@ namespace Steam_Invest.BLL.Interfaces
         Task CreatePurchase(PurchaseDTO model);
         Task UpdatePurchase(int purchaseId, PurchaseDTO model);
         Task DeletePurchase(int purchaseId);
+
+        #endregion
+
+        #region Bank
 
         #endregion
     }

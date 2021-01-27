@@ -23,6 +23,9 @@ namespace Steam_Invest.DAL.Repositories
         private IGenericRepository<Game> _game;
         private IGenericRepository<Currency> _currency;
         private IGenericRepository<Purchase> _purchase;
+        private IGenericRepository<Bank> _bank;
+        private IGenericRepository<BankDepartament> _bankDepartament;
+        private IGenericRepository<BankEmployee> _bankEmployee;
 
         #endregion
 
@@ -60,6 +63,15 @@ namespace Steam_Invest.DAL.Repositories
 
         public IGenericRepository<Purchase> Purchases
             => _purchase ?? (_purchase = new GenericRepository<Purchase>(_context));
+
+        public IGenericRepository<Bank> Banks
+            => _bank ?? (_bank = new GenericRepository<Bank>(_context));
+
+        public IGenericRepository<BankDepartament> BankDepartaments
+            => _bankDepartament ?? (_bankDepartament = new GenericRepository<BankDepartament>(_context));
+
+        public IGenericRepository<BankEmployee> BankEmployees
+            => _bankEmployee ?? (_bankEmployee = new GenericRepository<BankEmployee>(_context));
 
         #endregion
 

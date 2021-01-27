@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Steam_Invest.BLL.BankClasses;
 using Steam_Invest.BLL.DTO;
 using Steam_Invest.BLL.Interfaces;
 using Steam_Invest.DAL.Entities;

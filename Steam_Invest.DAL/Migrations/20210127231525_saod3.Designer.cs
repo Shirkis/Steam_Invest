@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Steam_Invest.DAL.EF;
@@ -9,9 +10,10 @@ using Steam_Invest.DAL.EF;
 namespace Steam_Invest.DAL.Migrations
 {
     [DbContext(typeof(Steam_InvestContext))]
-    partial class Steam_InvestContextModelSnapshot : ModelSnapshot
+    [Migration("20210127231525_saod3")]
+    partial class saod3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

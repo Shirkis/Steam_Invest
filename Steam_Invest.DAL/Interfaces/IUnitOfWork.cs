@@ -18,6 +18,9 @@ namespace Steam_Invest.DAL.Interfaces
         IGenericRepository<Game> Games { get; }
         IGenericRepository<Currency> Currencies { get; }
         IGenericRepository<Purchase> Purchases { get; }
+        IGenericRepository<Bank> Banks { get; }
+        IGenericRepository<BankDepartament> BankDepartaments { get; }
+        IGenericRepository<BankEmployee> BankEmployees { get; }
 
         #region Methods
         int SaveChanges();

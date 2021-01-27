@@ -122,6 +122,9 @@ namespace Steam_Invest
 
             services.AddTransient<IItemService, ItemService>();
             services.AddTransient<IDictionaryService, DictionaryService>();
+            services.AddTransient<IBankService, BankService>();
+            services.AddTransient<IBankDepartamentService, BankDepartamentService>();
+            services.AddTransient<IBankEmployeeService, BankEmployeeService>();
 
             var config = new AutoMapper.MapperConfiguration(cfg =>
             {

@@ -39,6 +39,15 @@ namespace Steam_Invest.PRL.Mappings
 
             CreateMap<Purchase, PurchaseInfoDTO>();
             CreateMap<Item, ItemInfoDTO>();
+
+            CreateMap<Bank, BankDTO>();
+            CreateMap<BankDTO, Bank>();
+
+            CreateMap<BankDepartament, BankDepartamentDTO>();
+            CreateMap<BankDepartamentDTO, BankDepartament>();
+
+            CreateMap<BankEmployee, BankEmployeeDTO>();
+            CreateMap<BankEmployeeDTO, BankEmployee>();
         }
     }
 }

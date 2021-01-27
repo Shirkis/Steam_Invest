@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Steam_Invest.DAL.EF;
@@ -9,9 +10,10 @@ using Steam_Invest.DAL.EF;
 namespace Steam_Invest.DAL.Migrations
 {
     [DbContext(typeof(Steam_InvestContext))]
-    partial class Steam_InvestContextModelSnapshot : ModelSnapshot
+    [Migration("20210127114414_saod")]
+    partial class saod
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,6 +28,10 @@ namespace Steam_Invest.DAL.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
@@ -43,6 +49,8 @@ namespace Steam_Invest.DAL.Migrations
                         .HasName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityRole");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -79,6 +87,10 @@ namespace Steam_Invest.DAL.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Email")
@@ -131,6 +143,8 @@ namespace Steam_Invest.DAL.Migrations
                         .HasName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -187,11 +201,17 @@ namespace Steam_Invest.DAL.Migrations
                     b.Property<string>("RoleId")
                         .HasColumnType("text");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("UserId", "RoleId");
 
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUserRole<string>");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -238,7 +258,7 @@ namespace Steam_Invest.DAL.Migrations
                     b.Property<string>("BankDepartamentName")
                         .HasColumnType("text");
 
-                    b.Property<int>("BankId")
+                    b.Property<int?>("BankId")
                         .HasColumnType("integer");
 
                     b.HasKey("BankDepartamentId");
@@ -255,7 +275,7 @@ namespace Steam_Invest.DAL.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int>("BankDepartamentId")
+                    b.Property<int?>("BankDepartamentId")
                         .HasColumnType("integer");
 
                     b.Property<string>("BankEmployeeName")
@@ -269,6 +289,200 @@ namespace Steam_Invest.DAL.Migrations
                     b.HasIndex("BankDepartamentId");
 
                     b.ToTable("BankEmployees");
+                });
+
+            modelBuilder.Entity("Steam_Invest.DAL.Entities.Currency", b =>
+                {
+                    b.Property<int>("CurrencyId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("CurrencyName")
+                        .HasColumnType("text");
+
+                    b.HasKey("CurrencyId");
+
+                    b.ToTable("Currencies");
+                });
+
+            modelBuilder.Entity("Steam_Invest.DAL.Entities.Game", b =>
+                {
+                    b.Property<int>("GameId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("GameName")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("GameSteamId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("GameId");
+
+                    b.ToTable("Games");
+                });
+
+            modelBuilder.Entity("Steam_Invest.DAL.Entities.Item", b =>
+                {
+                    b.Property<int>("ItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int?>("AllBuyCount")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal?>("AvgBuyPrice")
+                        .HasColumnType("numeric");
+
+                    b.Property<DateTime?>("FirstBuyDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("GameId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ItemName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ItemNameCode")
+                        .HasColumnType("text");
+
+                    b.Property<int>("PortfolioId")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal?>("SumBuyPrice")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("ItemId");
+
+                    b.HasIndex("GameId");
+
+                    b.HasIndex("PortfolioId");
+
+                    b.ToTable("Items");
+                });
+
+            modelBuilder.Entity("Steam_Invest.DAL.Entities.PersonInfo", b =>
+                {
+                    b.Property<int>("PersonInfoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("AspNetUserId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Login")
+                        .HasColumnType("text");
+
+                    b.HasKey("PersonInfoId");
+
+                    b.HasIndex("AspNetUserId")
+                        .IsUnique();
+
+                    b.ToTable("PersonInfo");
+                });
+
+            modelBuilder.Entity("Steam_Invest.DAL.Entities.Portfolio", b =>
+                {
+                    b.Property<int>("PortfolioId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<decimal?>("Balance")
+                        .HasColumnType("numeric");
+
+                    b.Property<int?>("CurrencyId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("LimitCount")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Limited")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("PersonInfoId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("PortfolioName")
+                        .HasColumnType("text");
+
+                    b.HasKey("PortfolioId");
+
+                    b.HasIndex("CurrencyId");
+
+                    b.HasIndex("PersonInfoId");
+
+                    b.ToTable("Portfolios");
+                });
+
+            modelBuilder.Entity("Steam_Invest.DAL.Entities.Purchase", b =>
+                {
+                    b.Property<int>("PurchaseId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int?>("Count")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("Date")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<bool>("IsSale")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal?>("Price")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("PurchaseId");
+
+                    b.HasIndex("ItemId");
+
+                    b.ToTable("Purchases");
+                });
+
+            modelBuilder.Entity("Steam_Invest.DAL.Entities.AspNetRole", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole");
+
+                    b.HasDiscriminator().HasValue("AspNetRole");
+                });
+
+            modelBuilder.Entity("Steam_Invest.DAL.Entities.AspNetUser", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<int?>("PersonInfoId")
+                        .HasColumnType("integer");
+
+                    b.HasDiscriminator().HasValue("AspNetUser");
+                });
+
+            modelBuilder.Entity("Steam_Invest.DAL.Entities.AspNetUserRole", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserRole<string>");
+
+                    b.Property<string>("RoleId1")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId1")
+                        .HasColumnType("text");
+
+                    b.HasIndex("RoleId1");
+
+                    b.HasIndex("UserId1");
+
+                    b.HasDiscriminator().HasValue("AspNetUserRole");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -326,18 +540,69 @@ namespace Steam_Invest.DAL.Migrations
                 {
                     b.HasOne("Steam_Invest.DAL.Entities.Bank", "Bank")
                         .WithMany("BankDepartaments")
-                        .HasForeignKey("BankId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BankId");
                 });
 
             modelBuilder.Entity("Steam_Invest.DAL.Entities.BankEmployee", b =>
                 {
                     b.HasOne("Steam_Invest.DAL.Entities.BankDepartament", "BankDepartament")
                         .WithMany("BankEmployees")
-                        .HasForeignKey("BankDepartamentId")
+                        .HasForeignKey("BankDepartamentId");
+                });
+
+            modelBuilder.Entity("Steam_Invest.DAL.Entities.Item", b =>
+                {
+                    b.HasOne("Steam_Invest.DAL.Entities.Game", "Game")
+                        .WithMany("Items")
+                        .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Steam_Invest.DAL.Entities.Portfolio", "Portfolio")
+                        .WithMany("Items")
+                        .HasForeignKey("PortfolioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Steam_Invest.DAL.Entities.PersonInfo", b =>
+                {
+                    b.HasOne("Steam_Invest.DAL.Entities.AspNetUser", "AspNetUser")
+                        .WithOne("PersonInfo")
+                        .HasForeignKey("Steam_Invest.DAL.Entities.PersonInfo", "AspNetUserId");
+                });
+
+            modelBuilder.Entity("Steam_Invest.DAL.Entities.Portfolio", b =>
+                {
+                    b.HasOne("Steam_Invest.DAL.Entities.Currency", "Currency")
+                        .WithMany("Portfolios")
+                        .HasForeignKey("CurrencyId");
+
+                    b.HasOne("Steam_Invest.DAL.Entities.PersonInfo", "PersonInfo")
+                        .WithMany("Portfolios")
+                        .HasForeignKey("PersonInfoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Steam_Invest.DAL.Entities.Purchase", b =>
+                {
+                    b.HasOne("Steam_Invest.DAL.Entities.Item", "Item")
+                        .WithMany("Purchases")
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Steam_Invest.DAL.Entities.AspNetUserRole", b =>
+                {
+                    b.HasOne("Steam_Invest.DAL.Entities.AspNetRole", "Role")
+                        .WithMany("AspNetUserRoles")
+                        .HasForeignKey("RoleId1");
+
+                    b.HasOne("Steam_Invest.DAL.Entities.AspNetUser", "User")
+                        .WithMany("AspNetUserRoles")
+                        .HasForeignKey("UserId1");
                 });
 #pragma warning restore 612, 618
         }

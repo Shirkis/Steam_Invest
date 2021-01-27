@@ -19,12 +19,15 @@ namespace Steam_Invest.DAL.EF
         //public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         //public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         //public virtual DbSet<AspNetUserRole> AspNetUserRoles { get; set; }
-        public virtual DbSet<PersonInfo> PersonInfo { get; set; }
-        public virtual DbSet<Portfolio> Portfolios { get; set; }
-        public virtual DbSet<Item> Items { get; set; }
-        public virtual DbSet<Game> Games { get; set; }
-        public virtual DbSet<Currency> Currencies { get; set; }
-        public virtual DbSet<Purchase> Purchases { get; set; }
+        //public virtual DbSet<PersonInfo> PersonInfo { get; set; }
+        //public virtual DbSet<Portfolio> Portfolios { get; set; }
+        //public virtual DbSet<Item> Items { get; set; }
+        //public virtual DbSet<Game> Games { get; set; }
+        //public virtual DbSet<Currency> Currencies { get; set; }
+        //public virtual DbSet<Purchase> Purchases { get; set; }
+        public virtual DbSet<Bank> Banks { get; set; }
+        public virtual DbSet<BankDepartament> BankDepartaments { get; set; }
+        public virtual DbSet<BankEmployee> BankEmployees { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
