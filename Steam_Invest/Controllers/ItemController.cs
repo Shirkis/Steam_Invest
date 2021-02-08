@@ -21,6 +21,7 @@ namespace Steam_Invest.PRL.Controllers
         {
             _itemService = itemService;
             _userManager = userManager;
+
         }
 
         #region Item
