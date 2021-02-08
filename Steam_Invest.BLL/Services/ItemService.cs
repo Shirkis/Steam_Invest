@@ -102,16 +102,6 @@ namespace Steam_Invest.BLL.Services
                 await _uow.SaveChangesAsync();
 
                 await CreatePurchase(model.Purchase);
-                //var newpurchase = _mapper.Map<Purchase>(model.Purchase);
-                //newpurchase.ItemId = newitem.ItemId;
-                //_uow.Purchases.Add(newpurchase);
-                //await _uow.SaveChangesAsync();
-                //var portfolio = await _uow.Portfolios.Query()
-                //    .Where(s => s.PortfolioId == model.PortfolioId)
-                //    .FirstOrDefaultAsync();
-                //portfolio.Balance -= model.Purchase.BuyPrice * model.Purchase.BuyCount;
-                //_uow.Portfolios.Update(portfolio);
-                //await _uow.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -120,7 +110,6 @@ namespace Steam_Invest.BLL.Services
         }
 
 
-        //не используется
         public async Task UpdateItem(int itemId, ItemChangeDTO model)
         {
             try
